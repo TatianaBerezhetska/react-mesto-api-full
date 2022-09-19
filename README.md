@@ -4,4 +4,15 @@
 * добавление, удаление и лайк карточек.
   
 ### Ссылка на сайт:
-https://berezhetska.students.nomoredomains.sbs/feed
+```sh
+https://berezhetska.students.nomoredomains.sbs
+```
+
+Сайт создан на Виртуальной машине Яндекс.Облако
+```sh
+https://cloud.yandex.com/en-ru/
+```
+Публичный IP: 
+```sh
+158.160.11.52
+```

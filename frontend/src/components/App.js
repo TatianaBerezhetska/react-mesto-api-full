@@ -61,7 +61,7 @@ function App() {
       .catch((err) => {
         console.log(`Ошибка при запросе данных карточек с сервера ${err}`);
       });
-  }, []);
+  }, [loggedIn]);
 
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i === currentUser._id);
@@ -90,17 +90,19 @@ function App() {
       });
   }
 
-  const setInfoError = (errorText) => {
-    setInfoToolTitle("Что-то пошло не так! Попробуйте ещё раз.");
-    setInfoToolImg(failureIcon);
-    setIsInfoTooltipOpen(true);
-  };
-
   const handleRegisterUser = (email, password) => {
     auth
       .register(email, password)
       .then((res) => {
-        if (!res.error) {
+        if (res.error) {
+          setInfoToolTitle("Что-то пошло не так! Попробуйте ещё раз.");
+          setInfoToolImg(failureIcon);
+          setIsInfoTooltipOpen(true);
+        } else if (res.message) {
+          setInfoToolTitle(res.message);
+          setInfoToolImg(failureIcon);
+          setIsInfoTooltipOpen(true);
+        } else {
           setInfoToolTitle("Вы успешно зарегистрировались!");
           setInfoToolImg(successIcon);
           setIsInfoTooltipOpen(true);
@@ -108,10 +110,6 @@ function App() {
             history.push("/signin");
             closeAllPopups();
           }, "3010");
-        } else {
-          setInfoToolTitle("Что-то пошло не так! Попробуйте ещё раз.");
-          setInfoToolImg(failureIcon);
-          setIsInfoTooltipOpen(true);
         }
       })
       .catch((err) => {
